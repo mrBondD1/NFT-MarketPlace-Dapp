@@ -3,6 +3,8 @@ import { ethers } from "ethers";
 import { create as ipfsHttpClient } from "ipfs-http-client";
 import { useRouter } from "next/router";
 import Web3Modal from "web3modal";
+import Particles from "react-tsparticles";
+
 
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 import { nftaddress, nftmarketaddress } from "../config";
@@ -13,6 +15,16 @@ export default function CreateItem() {
   const [fileUrl, setFileUrl] = useState(null)
   const [formInput, updateFormInput] = useState({ price: '', name: '', description: '' })
   const router = useRouter()
+
+   const particlesInit = (main) => {
+     console.log(main);
+
+     // you can initialize the tsParticles instance (main) here, adding custom shapes or presets
+   };
+
+   const particlesLoaded = (container) => {
+     console.log(container);
+   };
 
   async function onChange(e) {
     const file = e.target.files[0]
@@ -74,7 +86,93 @@ export default function CreateItem() {
   }
   
  return (
-   <div className="flex justify-center">
+   <div
+     className="flex justify-center"
+     style={{
+      
+       height: '80vh'
+     }}
+   >
+     <Particles
+       style={{
+         zIndex: 1,
+       }}
+       id="tsparticles"
+       init={particlesInit}
+       loaded={particlesLoaded}
+       options={{
+         fpsLimit: 60,
+         interactivity: {
+           events: {
+             onClick: {
+               enable: true,
+               mode: "push",
+             },
+             onHover: {
+               enable: true,
+               mode: "repulse",
+             },
+             resize: true,
+           },
+           modes: {
+             bubble: {
+               distance: 800,
+               duration: 2,
+               opacity: 0.5,
+               size: 40,
+             },
+             push: {
+               quantity: 4,
+             },
+             repulse: {
+               distance: 200,
+               duration: 0.4,
+             },
+           },
+         },
+         particles: {
+           color: {
+             value: "#535151",
+           },
+           links: {
+             color: "#000",
+             distance: 150,
+             enable: false,
+             opacity: 0.2,
+             width: 1,
+           },
+           collisions: {
+             enable: true,
+           },
+           move: {
+             direction: "none",
+             enable: true,
+             outMode: "bounce",
+             random: false,
+             speed: 2,
+             straight: false,
+           },
+           number: {
+             density: {
+               enable: true,
+               area: 800,
+             },
+             value: 50,
+           },
+           opacity: {
+             value: 0.9,
+           },
+           shape: {
+             type: "circle",
+           },
+           size: {
+             random: true,
+             value: 5,
+           },
+         },
+         detectRetina: true,
+       }}
+     />
      <div className="w-1/2 flex flex-col pb-12">
        <input
          placeholder="Asset Name"

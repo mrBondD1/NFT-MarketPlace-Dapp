@@ -3,3 +3,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+.nav-back{
+     background: rgb(18, 13, 122);
+background: linear-gradient(90deg, rgb(32, 29, 95) 0%, rgb(121, 34, 34) 38%, #00d4ff 100%);
+
+}
+.title{
+    color: rgb(234, 234, 238);
+}
+.nav-link{
+    color: white;
+    display: inline-block;
+  position: relative;
+    transition: transform 0.2s ease-out;  
+
+}
+/*  */
+.nav-link:hover{
+    transform: scale(1.1) rotate(2deg);
+    color: rgb(83, 236, 224);
+}
+
+.title span{
+    color:rgb(153, 250, 242);
+}

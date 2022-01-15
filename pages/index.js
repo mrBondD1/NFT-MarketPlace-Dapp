@@ -5,6 +5,7 @@ import Web3Modal from "web3modal";
 import { motion } from "framer-motion";
 import Particles from "react-tsparticles";
 import Header from './Header'
+import Footer from './Footer'
 
 import { nftaddress, nftmarketaddress } from "../config";
 
@@ -84,15 +85,30 @@ export default function Home() {
           if (loadingState === "loaded" && !nfts.length)
             return (
               <div
+                className="border"
                 style={{
                   marginTop: 0,
-                  background: `linear-gradient(104deg, rgba(75,224,224,1) 0%, rgba(231,127,205,1) 100%)`,
+                  // background: `linear-gradient(104deg, rgba(75,224,224,1) 0%, rgba(231,127,205,1) 100%)`,
                 }}
               >
                 <Header />
-                <h1 className="text-center px-20 py-10 text-3xl font-semibold">
-                  No items in the marketplace...
-                </h1>
+                <div
+                  style={{
+                    borderTop: "1px solid white",
+                    background: `linear-gradient(104deg, rgba(50,200,224,1) 0%, rgba(200,120,200,1) 100%)`,
+                  }}
+                >
+                  <h1 className="text-center px-20 py-10 text-3xl font-semibold">
+                    Opps! 😒
+                  </h1>
+                  <h1 className="text-center px-20 py-10 text-3xl font-semibold">
+                    No items in the marketplace... ❌
+                  </h1>
+                  <p className="text-center px-20 py-10 text-xl font-semibold">
+                    You can list your own NFTs for a less gas fee. Start Now! 👨‍💻
+                  </p>
+                </div>
+                <Footer />
                 <Particles
                   style={{
                     zIndex: 1,
@@ -178,10 +194,9 @@ export default function Home() {
   return (
     <div
       style={{
-        background:
-          "linear-gradient(0deg, rgba(230,117,197,1) 0%, rgba(211,223,226,1) 100%)",
-        margin: 0,
-        zIndex: 2,
+     background: "linear-gradient(0deg, rgba(117,230,193,1) 0%, rgba(112,145,200,1) 100%),"
+        // margin: 0,
+        // zIndex: 2,
       }}
     >
       <Header />
@@ -191,16 +206,17 @@ export default function Home() {
           fontSize: 24,
           fontFamily: "sans-serif",
           fontWeight: "700",
-          color: "rgb(51, 50, 56)",
-          borderBottom: "1px dotted black",
+          color: "black",
+          borderBottom: "1px solid white  ",
         }}
       >
-        Collect your desired <span className="text-blue-600">NFTs</span>
+        Collect your desired <span className="text-blue-700">NFTs</span>
       </h1>
       <div className="flex justify-center ">
         <Particles
           style={{
             zIndex: 1,
+
           }}
           id="tsparticles"
           init={particlesInit}
@@ -334,6 +350,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

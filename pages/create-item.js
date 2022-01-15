@@ -54,7 +54,7 @@ export default function CreateItem() {
       /* after file is uploaded to IPFS, pass the URL to save it on Polygon */
       createSale(url)
     } catch (error) {
-      console.log('Error uploading file: ', error)
+      console.log('Error uploading file: ', error) 
     }  
 }
   async function createSale(url) {
@@ -173,6 +173,19 @@ export default function CreateItem() {
        }}
      />
      <div className="w-1/2 flex flex-col pb-12">
+       <h2
+         style={{
+           color: "black",
+           fontWeight: 700,
+           fontSize: 20,
+           padding: "1rem",
+           textAlign: "center",
+           textDecoration: "underline",
+           color: "rgb(56, 52, 52)",
+         }}
+       >
+         Create & Mint your NFTs
+       </h2>
        <input
          placeholder="Asset Name"
          className="mt-8 border rounded p-4 form-input"

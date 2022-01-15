@@ -48,20 +48,48 @@ export default function CreatorDashboard() {
   }
 
     if (loadingState === "loaded" && !nfts.length)
-      return <h1 className="py-10 px-20 text-3xl">No assets created</h1>;
+      return (
+        <div>
+          <h1
+            style={{
+              fontFamily: "fantasy",
+            }}
+            className="py-10 px-20 text-3xl"
+          >
+            No assets created 🤖
+          </h1>
+          <p className="py-5 px-20 text-2xl font-semibold">
+            Create some NFTs & Mint them 👨‍💻
+          </p>
+        </div>
+      ); 
 
         return (
           <div>
             <div className="p-4">
-              <h2 className="text-2xl py-2">Items Created</h2>
+              <h2 className="text-2xl py-2 font-semibold underline">
+                Items Created
+              </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
                 {nfts.map((nft, i) => (
                   <div
                     key={i}
                     className="border shadow rounded-xl overflow-hidden"
                   >
-                    <img src={nft.image} className="rounded" />
-                    <div className="p-4 bg-black">
+                    <img
+                      src={nft.image}
+                      className="rounded"
+                      style={{
+                        height: "80%",
+                        width: "100%",
+                      }}
+                    />
+                    <div
+                      className="p-4 bg-black"
+                      style={{
+                        height: "20%",
+                      }}
+                    >
                       <p className="text-2xl font-bold text-white">
                         Price - {nft.price} Eth
                       </p>
@@ -72,16 +100,35 @@ export default function CreatorDashboard() {
             </div>
             <div className="px-4">
               {Boolean(sold.length) && (
-                <div>
-                  <h2 className="text-2xl py-2">Items sold</h2>
+                <div
+                  style={{
+                    paddingBottom: "2rem",
+                  }}
+                >
+                  <h2 className="text-2xl py-2 font-semibold ">
+                    Items sold 💰🚀
+                  </h2>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
                     {sold.map((nft, i) => (
                       <div
                         key={i}
                         className="border shadow rounded-xl overflow-hidden"
                       >
-                        <img src={nft.image} className="rounded" />
-                        <div className="p-4 bg-black">
+                        <img
+                          src={nft.image}
+                          className="rounded"
+                          style={{
+                            height: "80%",
+                            width: "100%",
+                          }}
+                        />
+                        <div
+                          className="p-4 bg-black"
+                          style={{
+                            height: "20%",
+                            paddingBottom: "1rem",
+                          }}
+                        >
                           <p className="text-2xl font-bold text-white">
                             Price - {nft.price} Eth
                           </p>

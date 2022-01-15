@@ -40,3 +40,7 @@ background: linear-gradient(90deg, rgb(32, 29, 95) 0%, rgb(121, 34, 34) 38%, #00
     border: 5px solid rgb(255, 246, 246);
     border-radius: 18px;
 }
+
+.btn1:hover{
+    background-color: white;
+}

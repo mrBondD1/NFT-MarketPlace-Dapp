@@ -9,10 +9,10 @@ function MyApp({ Component, pageProps, router }) {
    return (
      <div
        className="box"
-        style={{
-          background: `linear-gradient(104deg, rgba(75,224,224,1) 0%, rgba(231,127,205,1) 100%)`,
-          marginTop: 0,
-        }}
+       style={{
+         background: `linear-gradient(104deg, rgba(75,224,224,1) 0%, rgba(231,127,205,1) 100%)`,
+         marginTop: 0,
+       }}
      >
        <motion.div
          style={{

@@ -88,7 +88,6 @@ export default function Home() {
                 className="border"
                 style={{
                   marginTop: 0,
-                  // background: `linear-gradient(104deg, rgba(75,224,224,1) 0%, rgba(231,127,205,1) 100%)`,
                 }}
               >
                 <Header />

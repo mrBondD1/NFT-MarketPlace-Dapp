@@ -1,5 +1,4 @@
 import '../styles/globals.css'
-import '../styles/index.css';
 import Link from "next/link";
 import {motion} from 'framer-motion';
 

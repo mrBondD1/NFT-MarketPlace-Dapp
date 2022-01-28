@@ -1,53 +1,52 @@
-import React from 'react';
-
+import React from "react";
+import Link from "next/link";
 
 function Header() {
-
-
-    return (
-      <div
-        style={{
-          background: `linear-gradient(104deg, rgba(75,224,224,1) 0%, rgba(231,127,205,1) 100%)`,
-          marginTop: 0,
-        }}
-      >
-        <div className="header-main">
-          <div className="header-bg">
+  return (
+    <div
+      style={{
+        background: `linear-gradient(104deg, rgba(75,224,224,1) 0%, rgba(231,127,205,1) 100%)`,
+        marginTop: 0,
+      }}
+    >
+      <div className="header-main">
+        <div className="header-bg">
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              margin: "2rem",
+            }}
+          >
             <div
               style={{
                 display: "flex",
-                justifyContent: "space-between",
-                margin: "2rem",
+                flexDirection: "column",
+                justifyItems: "center",
+                justifyContent: "center",
+                padding: "0 2rem",
               }}
             >
-              <div
+              <h1
+                className="text-5xl font-bold pb-10"
                 style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyItems: "center",
-                  justifyContent: "center",
-                  padding: "0 2rem",
+                  fontFamily: "sans-serif",
                 }}
               >
-                <h1
-                  className="text-5xl font-bold pb-10"
-                  style={{
-                    fontFamily: "sans-serif",
-                  }}
-                >
-                  Discover, collect, and sell extraordinary NFTs
-                </h1>
-                <p
-                  className="text-2xl"
-                  style={{
-                    paddingRight: "9em",
-                    color: "#2f4f4f",
-                  }}
-                >
-                  <span className='font-bold'>Cryplistic</span> is the world's secure and largest NFT
-                  marketplace
-                </p>
-                <div>
+                Discover, collect, and sell extraordinary NFTs
+              </h1>
+              <p
+                className="text-2xl"
+                style={{
+                  paddingRight: "9em",
+                  color: "#2f4f4f",
+                }}
+              >
+                <span className="font-bold">Cryplistic</span> is the world's
+                secure and largest NFT marketplace
+              </p>
+              <div>
+                <Link href="/my-assets">
                   <button
                     style={{
                       marginRight: "auto",
@@ -62,6 +61,8 @@ function Header() {
                   >
                     Explore
                   </button>
+                </Link>
+                <Link href="/create-item">
                   <button
                     style={{
                       marginLeft: "1.5rem",
@@ -77,29 +78,30 @@ function Header() {
                   >
                     Create
                   </button>
-                </div>
+                </Link>
               </div>
-              <div
+            </div>
+            <div
+              style={{
+                width: "50vw",
+              }}
+            >
+              <img
                 style={{
-                  width: "50vw",
+                  margin: "1rem auto",
+                  width: "80%",
+                  height: "70vh",
+                  border: "1px solid black",
+                  borderRadius: "15px",
                 }}
-              >
-                <img
-                  style={{
-                    margin: "1rem auto",
-                    width: "80%",
-                    height: "70vh",
-                    border: "1px solid black",
-                    borderRadius: "15px",
-                  }}
-                  src="https://img.etimg.com/thumb/msid-87912609,width-650,imgsize-53228,,resizemode-4,quality-100/nft-digital_istock.jpg"
-                  alt=""
-                />
-              </div>
+                src="https://img.etimg.com/thumb/msid-87912609,width-650,imgsize-53228,,resizemode-4,quality-100/nft-digital_istock.jpg"
+                alt=""
+              />
             </div>
           </div>
         </div>
       </div>
-    );
+    </div>
+  );
 }
-export default Header
+export default Header;

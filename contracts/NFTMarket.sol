@@ -2,6 +2,8 @@
 pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/utils/Counters.sol";
+
+// security against transactions for multiple request //
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
@@ -9,9 +11,17 @@ import "hardhat/console.sol";
 
 contract NFTMarket is ReentrancyGuard {
   using Counters for Counters.Counter;
+
+  /* Obj:
+   number of items(nft) minting , number of transactions (sold), tokens that have not been sold
+    keep tracks of tokens total number = itemIds
+    arrays need to know the length - help to keep track of arrays
+  */
   Counters.Counter private _itemIds;
   Counters.Counter private _itemsSold;
 
+  // determine who is owner of contract( marketplace)
+  // charge a listing fee so that the owner makes a commission
   address payable owner;
   uint256 listingPrice = 0.025 ether;
 
@@ -19,6 +29,7 @@ contract NFTMarket is ReentrancyGuard {
     owner = payable(msg.sender);
   }
 
+ // struct can act like objects
   struct MarketItem {
     uint itemId;
     address nftContract;
@@ -29,8 +40,10 @@ contract NFTMarket is ReentrancyGuard {
     bool sold;
   }
 
+ // return which MarketItem - fetch which one it is
   mapping(uint256 => MarketItem) private idToMarketItem;
 
+ // listen to events from front end applications
   event MarketItemCreated (
     uint indexed itemId,
     address indexed nftContract,
@@ -46,30 +59,36 @@ contract NFTMarket is ReentrancyGuard {
     return listingPrice;
   }
   
-  /* Places an item for sale on the marketplace */
+  /* create a market item and  Places an item for sale on the marketplace */
   function createMarketItem(
     address nftContract,
     uint256 tokenId,
     uint256 price
   ) public payable nonReentrant {
+    // nonReentrant is a modifier to prevent reentry attack ( multiple requests )
+
     require(price > 0, "Price must be at least 1 wei");
     require(msg.value == listingPrice, "Price must be equal to listing price");
 
     _itemIds.increment();
     uint256 itemId = _itemIds.current();
-  
+
+    // putting it up for sale - bool - no owner
+    // here we are grabing the current tokenid(nft) and updating it's info
     idToMarketItem[itemId] =  MarketItem(
       itemId,
       nftContract,
       tokenId,
-      payable(msg.sender),
-      payable(address(0)),
+      payable(msg.sender), // setting seller - whoever minting the token
+      payable(address(0)), // no owner(0) - bcoz we're just minting the token rn
       price,
-      false
+      false // not sold
     );
 
+    // NFT Transaction - transfer to whoever  buys it
     IERC721(nftContract).transferFrom(msg.sender, address(this), tokenId);
 
+    // throwing up the info
     emit MarketItemCreated(
       itemId,
       nftContract,
@@ -77,7 +96,7 @@ contract NFTMarket is ReentrancyGuard {
       msg.sender,
       address(0),
       price,
-      false
+      false // not sold
     );
   }
 
@@ -87,12 +106,18 @@ contract NFTMarket is ReentrancyGuard {
     address nftContract,
     uint256 itemId
     ) public payable nonReentrant {
+    // nonReentrant is a modifier to prevent reentry attack ( multiple requests )
+
+    // since we've minted the token,  we can access the info
     uint price = idToMarketItem[itemId].price;
     uint tokenId = idToMarketItem[itemId].tokenId;
     require(msg.value == price, "Please submit the asking price in order to complete the purchase");
 
+    // transfer the ammout to the seller
     idToMarketItem[itemId].seller.transfer(msg.value);
+    // transfer the nft from contract address to the buyer
     IERC721(nftContract).transferFrom(address(this), msg.sender, tokenId);
+    // update the owner
     idToMarketItem[itemId].owner = payable(msg.sender);
     idToMarketItem[itemId].sold = true;
     _itemsSold.increment();
@@ -105,8 +130,11 @@ contract NFTMarket is ReentrancyGuard {
     uint unsoldItemCount = _itemIds.current() - _itemsSold.current();
     uint currentIndex = 0;
 
+  // looping over the number of items created ( if number has not been sold populate the array)
     MarketItem[] memory items = new MarketItem[](unsoldItemCount);
     for (uint i = 0; i < itemCount; i++) {
+
+      // if the item not sold then update MarketItem
       if (idToMarketItem[i + 1].owner == address(0)) {
         uint currentId = idToMarketItem[i + 1].itemId;
         MarketItem storage currentItem = idToMarketItem[currentId];
@@ -129,10 +157,14 @@ contract NFTMarket is ReentrancyGuard {
       }
     }
 
+    // second loop to loop through the amount you have purchased with itemCount
+    // check to see if owner address is equal to msg sender
+
     MarketItem[] memory items = new MarketItem[](itemCount);
     for (uint i = 0; i < totalItemCount; i++) {
       if (idToMarketItem[i + 1].owner == msg.sender) {
         uint currentId = idToMarketItem[i + 1].itemId;
+        // current array
         MarketItem storage currentItem = idToMarketItem[currentId];
         items[currentIndex] = currentItem;
         currentIndex += 1;

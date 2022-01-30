@@ -1,14 +1,16 @@
-import { ethers } from "ethers";
+import { ethers } from "ethers"; // connecting client side to blockchain etc
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Web3Modal from "web3modal";
+import Web3Modal from "web3modal"; // metamask modal
 import { motion } from "framer-motion";
 import Particles from "react-tsparticles";
 import Header from './Header'
 import Footer from './Footer'
 
+
 import { nftaddress, nftmarketaddress } from "../config";
 
+  //  to get the infomation from contracts
 import NFT from "../artifacts/contracts/NFT.sol/NFT.json";
 import Market from "../artifacts/contracts/NFTMarket.sol/NFTMarket.json";
 
@@ -18,10 +20,13 @@ export default function Home() {
     const [nfts, setNfts] = useState([]);
     const [loadingState, setLoadingState] = useState("not-loaded");
 
+    // to render our nfts
       useEffect(() => {
         loadNFTs();
       }, []);
 
+
+      // these are for the particle background
         const particlesInit = (main) => {
           console.log(main);
 
@@ -31,7 +36,15 @@ export default function Home() {
         const particlesLoaded = (container) => {
           console.log(container);
         };
+
+
+
   async function loadNFTs() {
+
+    /* what we want to load:
+    ** provider, tokenContract, marketContract, data for our marketItems 
+    */
+
           const provider = new ethers.providers.JsonRpcProvider();
           const tokenContract = new ethers.Contract(
             nftaddress,
@@ -48,6 +61,7 @@ export default function Home() {
           const items = await Promise.all(
             data.map(async (i) => {
               const tokenUri = await tokenContract.tokenURI(i.tokenId);
+              // we want to get metadata - tokenURi json format ERC721
               const meta = await axios.get(tokenUri);
               let price = ethers.utils.formatUnits(i.price.toString(), "ether");
               let item = {
@@ -64,7 +78,7 @@ export default function Home() {
           );
           setNfts(items);
           setLoadingState("loaded");
-        }
+  }
 
 
  async function buyNft(nft) {

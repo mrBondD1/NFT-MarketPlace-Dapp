@@ -26,6 +26,7 @@ contract NFTMarket is ReentrancyGuard {
   uint256 listingPrice = 0.025 ether;
 
   constructor() {
+    // set the owner
     owner = payable(msg.sender);
   }
 
@@ -178,7 +179,8 @@ contract NFTMarket is ReentrancyGuard {
     uint totalItemCount = _itemIds.current();
     uint itemCount = 0;
     uint currentIndex = 0;
-
+    
+    // instead of .owner it will be .seller
     for (uint i = 0; i < totalItemCount; i++) {
       if (idToMarketItem[i + 1].seller == msg.sender) {
         itemCount += 1;

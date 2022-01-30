@@ -12,11 +12,11 @@ module.exports = {
 
     mumbai: {
       url: `https://polygon-mumbai.infura.io/v3/${projectId}`,
-      accounts: [privateKey],
+      accounts: [privateKey], // marketplace owner metamask acnt key 
     },
     mainnet: {
       url: `https://polygon-mainnet.infura.io/${projectId}`,
-      accounts: [privateKey],
+      accounts: [privateKey], // marketplace owner metamask acnt key 
     },
   },
   solidity: "0.8.4",

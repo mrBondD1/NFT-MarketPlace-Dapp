@@ -1,31 +1,37 @@
 import { useState } from "react";
 import { ethers } from "ethers";
-import { create as ipfsHttpClient } from "ipfs-http-client";
+import { create as ipfsHttpClient } from "ipfs-http-client"; // file storage
 import { useRouter } from "next/router";
 import Web3Modal from "web3modal";
 import Particles from "react-tsparticles";
 
-
-const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 import { nftaddress, nftmarketaddress } from "../config";
 import NFT from "../artifacts/contracts/NFT.sol/NFT.json";
 import Market from "../artifacts/contracts/NFTMarket.sol/NFTMarket.json";
+
+  // in this component we set the ipfs up to host our nft data of storage
+
+const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0"); // this is where we're posting our data
 
 export default function CreateItem() { 
   const [fileUrl, setFileUrl] = useState(null)
   const [formInput, updateFormInput] = useState({ price: '', name: '', description: '' })
   const router = useRouter()
 
+
+
+  // background particles
    const particlesInit = (main) => {
      console.log(main);
-
      // you can initialize the tsParticles instance (main) here, adding custom shapes or presets
    };
-
    const particlesLoaded = (container) => {
      console.log(container);
    };
 
+
+
+   // set up a function to fire off when we update files in our form - we can add our NFT images - IPFS
   async function onChange(e) {
     const file = e.target.files[0]
     try {
@@ -35,7 +41,7 @@ export default function CreateItem() {
           progress: (prog) => console.log(`received: ${prog}`)
         }
       )
-      const url = `https://ipfs.infura.io/ipfs/${added.path}`
+      const url = `https://ipfs.infura.io/ipfs/${added.path}` // dynamically setting path
       setFileUrl(url)
     } catch (error) {
       console.log('Error uploading file: ', error)
@@ -43,7 +49,7 @@ export default function CreateItem() {
   }
   async function createMarket() {
     const { name, description, price } = formInput
-    if (!name || !description || !price || !fileUrl) return
+    if (!name || !description || !price || !fileUrl) return; // if the form is incomplete then don't pass to the market
     /* first, upload to IPFS */
     const data = JSON.stringify({
       name, description, image: fileUrl
@@ -58,12 +64,13 @@ export default function CreateItem() {
     }  
 }
   async function createSale(url) {
+    // create the items and list them on marketplace
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
 
-    /* next, create the item */
+    /* next, create the item (token) */
     let contract = new ethers.Contract(nftaddress, NFT.abi, signer);
     let transaction = await contract.createToken(url);
     let tx = await transaction.wait();
@@ -82,7 +89,7 @@ export default function CreateItem() {
       value: listingPrice,
     });
     await transaction.wait();
-    router.push("/");
+    router.push("/"); // return to home page
   }
   
  return (

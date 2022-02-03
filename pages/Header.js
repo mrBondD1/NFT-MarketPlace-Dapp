@@ -15,7 +15,8 @@ function Header() {
             style={{
               display: "flex",
               justifyContent: "space-between",
-              margin: "2rem",
+              margin: "0rem 2rem",
+              height: "80vh",
             }}
           >
             <div
@@ -94,8 +95,8 @@ function Header() {
                   border: "1px solid black",
                   borderRadius: "15px",
                 }}
-                src="https://img.etimg.com/thumb/msid-87912609,width-650,imgsize-53228,,resizemode-4,quality-100/nft-digital_istock.jpg"
-                alt=""
+                src="https://thevrsoldier.com/wp-content/uploads/2022/01/metaverse-crypto-coins-market-cap-thevrsoldier.jpg"
+                alt="nft"
               />
             </div>
           </div>

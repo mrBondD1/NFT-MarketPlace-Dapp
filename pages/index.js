@@ -81,18 +81,21 @@ export default function Home() {
   }
 
 
+    // function to buy nfts from market
  async function buyNft(nft) {
    const web3Modal = new Web3Modal();
-   const connection = await web3Modal.connect();
+   const connection = await web3Modal.connect(); // connection to metamask
    const provider = new ethers.providers.Web3Provider(connection);
    const signer = provider.getSigner();
    const contract = new ethers.Contract(nftmarketaddress, Market.abi, signer);
 
    const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
+   // buy transaction
    const transaction = await contract.createMarketSale(nftaddress, nft.itemId, {
      value: price,
    });
    await transaction.wait();
+   // we will wait for the transaction to happpen and then reload the app
    loadNFTs();
  }
 
@@ -109,9 +112,10 @@ export default function Home() {
                   style={{
                     borderTop: "1px solid white",
                     background: `linear-gradient(104deg, rgba(50,200,224,1) 0%, rgba(200,120,200,1) 100%)`,
+                    height: '100vh'
                   }}
                 >
-                  <h1 className="text-center px-20 py-10 text-3xl font-semibold">
+                  <h1 className="text-center mt-20 px-20 py-10 text-3xl font-semibold">
                     Opps! 😒
                   </h1>
                   <h1 className="text-center px-20 py-10 text-3xl font-semibold">
@@ -208,8 +212,6 @@ export default function Home() {
     <div
       style={{
      background: "linear-gradient(0deg, rgba(117,230,193,1) 0%, rgba(112,145,200,1) 100%),"
-        // margin: 0,
-        // zIndex: 2,
       }}
     >
       <Header />
@@ -318,12 +320,6 @@ export default function Home() {
                   border: "2px solid white",
                 }}
                 className=" shadow rounded-xl overflow-hidden "
-                // animate={{
-                //   rotate: [0, 0, 180, 0],
-                //   transition: {
-                //     duration: 1,
-                //   },
-                // }}
                 whileHover={{
                   position: "relative",
                   zIndex: 1,

@@ -59,7 +59,8 @@ export default function MyAssets() {
           className="py-10 px-20 text-center text-3xl"
           style={{
             fontFamily: "cambria",
-            fontWeight: 700
+            fontWeight: 700,
+          
           }}
         >
          Oho! No assets owned 👽

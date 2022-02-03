@@ -62,8 +62,7 @@ const Footer = () => {
             </h2>
             <p>
               Once you’ve set up your wallet of choice, connect it to Cryplistic
-              by clicking the wallet icon in the top right corner. Currently
-              we're supporting MetaMask wallet only!
+              by clicking the wallet icon in the top right corner.
             </p>
           </div>
           <div
@@ -163,9 +162,12 @@ const Footer = () => {
         <div
           className="flex justify-between pb-10"
           style={{
-            margin: "0rem 5rem",
-            borderTop: "1px solid grey",
-            borderBottom: "1px solid grey",
+            margin: "0rem 0rem",
+            borderTop: "2px solid white",
+            // background: 'grey'
+            // borderRight: "2px dotted white",
+            // borderLeft: "2px dotted white",
+           
           }}
         >
           <div
@@ -177,7 +179,7 @@ const Footer = () => {
               justifyContent: 'space-between'
             }}
           >
-            <h2 className="text-2xl font-bold pb-5 pt-20 underline">
+            <h2 className="text-2xl font-bold pb-5 pt-20 underline ">
               Cryplistic MarketPlace
             </h2>
             <p

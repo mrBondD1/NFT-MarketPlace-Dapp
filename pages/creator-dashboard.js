@@ -67,8 +67,8 @@ export default function CreatorDashboard() {
         return (
           <div>
             <div className="p-4">
-              <h2 className="text-2xl py-2 font-semibold underline">
-                Items Created
+              <h2 className="text-2xl py-2 font-semibold ">
+                <span className="underline"> Items Created </span>🛠👨‍💻
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
                 {nfts.map((nft, i) => (
@@ -105,8 +105,8 @@ export default function CreatorDashboard() {
                     paddingBottom: "2rem",
                   }}
                 >
-                  <h2 className="text-2xl py-2 font-semibold ">
-                    Items sold 💰🚀
+                  <h2 className="text-2xl py-2   font-bold ">
+                    <span className="underline">Items sold</span> 💰🚀
                   </h2>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
                     {sold.map((nft, i) => (

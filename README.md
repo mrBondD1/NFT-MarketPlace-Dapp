@@ -1,6 +1,9 @@
-### A Decentralized NFT Marketplace 👽🚀
+# A Decentralized NFT Marketplace 👽🚀
 
 ## Based on Ethereum Blockchain 👨‍💻
 
-- under development 🛠
-  Tools - NextJS , Solidity, Hardhat, IPFS, Openzeppelin, Framer Motion, EtherJS
+- under development
+
+#
+
+🛠 Tools - NextJS , Solidity, Hardhat, IPFS, Openzeppelin, Framer Motion, EtherJS
